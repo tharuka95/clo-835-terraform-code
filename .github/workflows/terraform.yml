@@ -70,5 +70,5 @@ jobs:
       with:
         name: ec2-keys
         path: |
-          ./ec2-key     # Private key
-          ./ec2-key.pub # Public key
+          ec2-key     
+          ec2-key.pub
