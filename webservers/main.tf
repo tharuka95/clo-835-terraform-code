@@ -65,9 +65,14 @@ resource "aws_instance" "ec2_instance" {
     }
 }
 
+# resource "aws_key_pair" "web_key" {
+#   key_name   = var.key_name
+#   public_key = file("${var.key_name}.pub")
+# }
+
 resource "aws_key_pair" "web_key" {
   key_name   = var.key_name
-  public_key = file("${var.key_name}.pub")
+  public_key = var.public_key
 }
 
 
