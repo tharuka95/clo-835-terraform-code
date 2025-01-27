@@ -39,7 +39,7 @@ jobs:
 
     - name: Generate SSH Key Pair
       run: |
-        ssh-keygen -t rsa -f ec2-key
+        ssh-keygen -t rsa -b 4096 -m PEM -f ec2-key -q -N ""
 
 
     - name: Deployment for Network
