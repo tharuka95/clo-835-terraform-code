@@ -71,7 +71,7 @@ resource "aws_key_pair" "web_key" {
 }
 
 
-resource "awscc_ecr_repository" "ecr_repo" {
+resource "awscc_ecr_repository" "mysql_images" {
   repository_name      = "mysql_images"
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration = {
@@ -80,7 +80,7 @@ resource "awscc_ecr_repository" "ecr_repo" {
 
 }
   
-  resource "awscc_ecr_repository" "ecr_repo" {
+  resource "awscc_ecr_repository" "app_images" {
   repository_name      = "app_images"
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration = {
