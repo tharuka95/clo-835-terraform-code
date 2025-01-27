@@ -42,6 +42,12 @@ jobs:
         ssh-keygen -t rsa -b 4096 -m PEM -f ec2-key -q -N ""
 
 
+    - name: Import Key Pair into AWS
+      run: |
+        aws ec2 import-key-pair \
+          --key-name ec2-key \
+          --public-key-material fileb://ec2-key.pub
+          
     - name: Deployment for Network
       run: |
         cd networks
