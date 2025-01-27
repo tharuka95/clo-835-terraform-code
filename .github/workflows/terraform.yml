@@ -36,19 +36,6 @@ jobs:
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Check and Remove Existing Key Pair
-      run: |
-        # Check if the key pair exists
-        EXISTING_KEY=$(aws ec2 describe-key-pairs --key-name ec2-key --query "KeyPairs[0].KeyName" --output text)
-        
-        # If the key exists, delete it
-        if [ "$EXISTING_KEY" != "None" ]; then
-          echo "Key pair 'ec2-key' exists. Deleting it."
-          aws ec2 delete-key-pair --key-name ec2-key
-        else
-          echo "Key pair 'ec2-key' does not exist."
-        fi
-        
     - name: Generate SSH Key Pair
       run: |
         ssh-keygen -t rsa -b 4096 -m PEM -f ec2-key -q -N ""
