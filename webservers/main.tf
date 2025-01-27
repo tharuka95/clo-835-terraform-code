@@ -70,10 +70,10 @@ resource "aws_instance" "ec2_instance" {
 #   public_key = file("${var.key_name}.pub")
 # }
 
-resource "aws_key_pair" "web_key" {
-  key_name   = var.key_name
-  public_key = var.public_key
-}
+# resource "aws_key_pair" "web_key" {
+#   key_name   = var.key_name
+#   public_key = var.public_key
+# }
 
 
 resource "awscc_ecr_repository" "mysql_images" {
