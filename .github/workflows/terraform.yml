@@ -28,6 +28,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ secrets.AWS_REGION }}
+        
+    - name: Generate SSH Key Pair
+      run: |
+        ssh-keygen -t rsa -f ec2-key
 
     - name: Deployment for Network
       run: |
@@ -37,10 +41,22 @@ jobs:
         terraform plan -out=tfplan
         terraform apply -auto-approve tfplan
     
-    - name: Deployment for Network
+    - name: Deployment for Webservers
       run: |
         cd webservers
         terraform init
         terraform validate
         terraform plan -out=tfplan
         terraform apply -auto-approve tfplan
+    env:
+        TF_VAR_public_key: $(cat ./ec2-key.pub)
+        TF_VAR_key_name: "ec2-key"
+        
+        
+    - name: Upload Both Keys
+      uses: actions/upload-artifact@v3
+      with:
+        name: ec2-keys
+        path: |
+          ./ec2-key     # Private key
+          ./ec2-key.pub # Public key
