@@ -72,7 +72,14 @@ resource "aws_key_pair" "web_key" {
 
 
 resource "awscc_ecr_repository" "ecr_repo" {
-  repository_name      = "ecr_assignment1"
+  repository_name      = "mysql_images"
+  image_tag_mutability = "MUTABLE"
+  image_scanning_configuration = {
+    scan_on_push = true
+  }
+  
+  resource "awscc_ecr_repository" "ecr_repo" {
+  repository_name      = "app_images"
   image_tag_mutability = "MUTABLE"
   image_scanning_configuration = {
     scan_on_push = true
