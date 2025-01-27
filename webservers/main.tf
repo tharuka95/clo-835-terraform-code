@@ -77,6 +77,8 @@ resource "awscc_ecr_repository" "ecr_repo" {
   image_scanning_configuration = {
     scan_on_push = true
   }
+
+}
   
   resource "awscc_ecr_repository" "ecr_repo" {
   repository_name      = "app_images"
