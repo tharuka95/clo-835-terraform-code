@@ -15,9 +15,3 @@ variable "key_name"{
     default = "ec2-key"
     description = "Key Name"
 } 
-
-
-variable "public_key" {
-  description = "The public key to use for the EC2 instance"
-  type        = string
-}
