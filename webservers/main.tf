@@ -52,6 +52,10 @@ resource "aws_security_group" "ec2-sg" {
     }
 }
 
+data "aws_iam_instance_profile" "iam_profile" {
+  name = "LabInstanceProfile"
+}
+
 resource "aws_instance" "ec2_instance" {
   ami                     = var.ami_id
   instance_type           = var.instance_type
@@ -60,20 +64,16 @@ resource "aws_instance" "ec2_instance" {
   security_groups         = [aws_security_group.ec2-sg.id]
   associate_public_ip_address = true
   user_data               = file("install_docker.sh")
+  iam_instance_profile    = data.aws_iam_instance_profile.iam_profile.name
   tags = {
       "Name" = "ec2 instance"
     }
 }
 
-# resource "aws_key_pair" "web_key" {
-#   key_name   = var.key_name
-#   public_key = file("${var.key_name}.pub")
-# }
-
-# resource "aws_key_pair" "web_key" {
-#   key_name   = var.key_name
-#   public_key = var.public_key
-# }
+resource "aws_key_pair" "web_key" {
+  key_name   = var.key_name
+  public_key = file("${var.key_name}.pub")
+}
 
 
 resource "awscc_ecr_repository" "mysql_images" {
